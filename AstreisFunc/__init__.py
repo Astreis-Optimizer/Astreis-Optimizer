@@ -17,7 +17,7 @@ class AstreisFunc:
     # =============================================================================
     @staticmethod
     def send_message(input_field, scroll_layout, themes):
-        client = Groq(api_key='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')
+        client = Groq()
         user_input = input_field.text()
         if not user_input.strip():
             return
