@@ -57,13 +57,24 @@ class AstreisFunc:
     # =============================================================================
     @staticmethod
     def send_message(input_field, scroll_layout, themes):
+        import os
+        from dotenv import load_dotenv
         from PySide6.QtCore import QTimer
         from PySide6.QtWidgets import QLabel, QScrollArea
         from groq import Groq
-        client = Groq(api_key='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')
+
+        # Load .env variables
+        load_dotenv()
+
+        # Grab API key safely
+        groq_api_key = os.getenv("GROQ_API_KEY")
+
+        client = Groq(api_key=groq_api_key)
+
         user_input = input_field.text()
         if not user_input.strip():
             return
+
         user_message = QLabel(f"You: {user_input}")
         user_message.setStyleSheet(
             f"font: 12pt 'Segoe UI'; color: {themes['app_color']['text_description']}; "
@@ -71,6 +82,7 @@ class AstreisFunc:
         )
         user_message.setWordWrap(True)
         scroll_layout.addWidget(user_message)
+
         AstreisFunc._chat_history.append({"role": "user", "content": user_input})
         messages = [
             {
@@ -79,6 +91,7 @@ class AstreisFunc:
             }
         ]
         messages.extend(AstreisFunc._chat_history[-10:])
+
         ai_response = QLabel("AI: ")
         ai_response.setStyleSheet(
             f"font: bold 12pt 'Segoe UI'; color: {themes['app_color']['text_description']}; "
@@ -86,6 +99,7 @@ class AstreisFunc:
         )
         ai_response.setWordWrap(True)
         scroll_layout.addWidget(ai_response)
+
         try:
             completion = client.chat.completions.create(
                 model="meta-llama/llama-4-scout-17b-16e-instruct",
@@ -98,6 +112,7 @@ class AstreisFunc:
             )
             full_response = ""
             response_chunks = [chunk.choices[0].delta.content or "" for chunk in completion]
+
             def stream_text(index=0):
                 nonlocal full_response
                 try:
@@ -114,10 +129,12 @@ class AstreisFunc:
                         AstreisFunc._chat_history.append({"role": "assistant", "content": full_response})
                 except RuntimeError:
                     print("AI response label was deleted during streaming. Halting.")
+
             QTimer.singleShot(50, lambda: stream_text())
         except Exception as e:
             ai_response.setText("AI: Error connecting to the service.")
             print(f"[ERROR] {e}")
+
         input_field.clear()
         scroll_area = scroll_layout.parent()
         while scroll_area and not isinstance(scroll_area, QScrollArea):
