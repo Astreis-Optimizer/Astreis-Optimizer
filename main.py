@@ -16,7 +16,7 @@ from gui.uis.windows.main_window.AstreisFunc import AstreisFunc
 from gui.widgets.py_message_box import PyMessageBox, show_info_message, show_critical_message
 import socket
 
-print("--- Code Starting ---")
+print("--- Script Starting ---")
 
 def check_single_instance(port=65432):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
