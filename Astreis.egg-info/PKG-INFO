@@ -1,0 +1,307 @@
+Metadata-Version: 2.4
+Name: Astreis
+Version: 1.0.0
+Summary: All In One PC Optimizer - Windows System Optimization Tool
+Home-page: 
+Author: Azurment
+Author-email: 
+Project-URL: Bug Reports, 
+Project-URL: Source, 
+Keywords: windows optimization system tools power management defragmentation
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: System :: Systems Administration
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: PySide6>=6.5.0
+Requires-Dist: groq>=0.4.0
+Requires-Dist: psutil>=5.9.0
+Requires-Dist: py-cpuinfo>=9.0.0
+Requires-Dist: wmi>=1.5.1
+Requires-Dist: pywin32>=306
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Astreis - All In One PC Optimizer
+
+A comprehensive PC optimization tool built with PySide6 that provides system optimization, AI chat assistance, and performance monitoring.
+
+## Features
+
+- **System Optimization**: Power plan optimization, appearance settings, and drive defragmentation
+- **AI Chat Assistant**: Integrated Groq AI chatbot for PC optimization advice
+- **System Monitoring**: Real-time system information display
+- **Modern UI**: Beautiful, responsive interface with dark theme support
+- **Admin Privileges**: Automatic elevation for system-level optimizations
+
+## Installation
+
+### Prerequisites
+
+- Windows 10/11
+- Python 3.8 or higher
+- Administrator privileges (required for optimization features)
+
+### Quick Start
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd Astreis
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the application:
+```bash
+python main.py
+```
+
+### Package Installation
+
+You can also install Astreis as a Python package:
+
+```bash
+# Install in development mode
+pip install -e .
+
+# Or install normally
+pip install .
+```
+
+After installation, you can run the application using:
+```bash
+astreis
+# or
+astreis-gui
+```
+
+## Building and Distribution
+
+### Prerequisites for Building
+
+Install build dependencies:
+```bash
+python build.py deps
+```
+
+### Building Options
+
+#### 1. Using the Build Script (Recommended)
+
+The project includes a comprehensive build script that handles all build processes:
+
+```bash
+# Clean build directories
+python build.py clean
+
+# Install build dependencies
+python build.py deps
+
+# Build Python package (source distribution + wheel)
+python build.py package
+
+# Build executable with PyInstaller
+python build.py pyinstaller
+
+# Build executable with cx_Freeze
+python build.py cx_freeze
+
+# Build both executables
+python build.py exe
+
+# Full build process (clean, deps, package, PyInstaller exe)
+python build.py all
+
+# Install package in development mode
+python build.py install
+```
+
+#### 2. Using setup.py Directly
+
+```bash
+# Build Python package
+python setup.py sdist bdist_wheel
+
+# Build executable with cx_Freeze
+python setup.py build_exe
+
+# Install in development mode
+python setup.py develop
+
+# Install normally
+python setup.py install
+```
+
+#### 3. Using PyInstaller Directly
+
+```bash
+# Install PyInstaller
+pip install pyinstaller
+
+# Build executable
+pyinstaller --onefile --windowed --icon=icon.ico --name=Astreis main.py
+```
+
+### Build Outputs
+
+- **Python Package**: `dist/Astreis-1.0.0.tar.gz` and `dist/Astreis-1.0.0-py3-none-any.whl`
+- **PyInstaller Executable**: `dist/Astreis.exe`
+- **cx_Freeze Executable**: `build/exe.win-*/Astreis.exe`
+
+### Distribution
+
+To distribute your application:
+
+1. **Executable**: Share the `.exe` file from the `dist/` or `build/` directory
+2. **Python Package**: Upload to PyPI using `python build.py upload`
+3. **Source Code**: Share the repository or source distribution
+
+## Usage
+
+### Main Interface
+
+The application features three main sections:
+
+1. **Home**: System information and overview
+2. **AI Chatbot**: Interactive AI assistant for optimization advice
+3. **Optimize PC**: System optimization tools
+
+### Optimization Features
+
+- **Power Plan Optimization**: Creates and configures a high-performance power plan
+- **Appearance Optimization**: Disables visual effects for better performance
+- **Drive Defragmentation**: Analyzes and optimizes drive performance (skips SSDs)
+- **Startup Apps Management**: Disables unnecessary startup applications
+- **Services Optimization**: Disables non-essential Windows services
+
+### AI Chat Assistant
+
+The integrated AI chatbot can provide:
+- Optimization recommendations
+- Troubleshooting advice
+- Performance tips
+- System maintenance guidance
+
+## Dependencies
+
+### Runtime Dependencies
+- **PySide6>=6.5.0**: Qt framework for the GUI
+- **groq>=0.4.0**: AI chat functionality
+- **psutil>=5.9.0**: System monitoring
+- **py-cpuinfo>=9.0.0**: CPU information
+- **wmi>=1.5.1**: Windows Management Instrumentation
+- **pywin32>=306**: Windows API access
+
+### Build Dependencies
+- **setuptools**: Package building
+- **wheel**: Wheel distribution format
+- **twine**: PyPI upload tool
+- **pyinstaller**: Executable creation
+- **cx_Freeze**: Alternative executable creation
+
+## Development
+
+### Project Structure
+
+```
+Astreis/
+â”œâ”€â”€ main.py                 # Application entry point
+â”œâ”€â”€ setup.py               # Package configuration and build setup
+â”œâ”€â”€ build.py               # Build script for easy compilation
+â”œâ”€â”€ MANIFEST.in            # Package file inclusion rules
+â”œâ”€â”€ gui/                   # GUI components
+â”‚   â”œâ”€â”€ core/              # Core functionality
+â”‚   â”œâ”€â”€ uis/               # User interface definitions
+â”‚   â””â”€â”€ widgets/           # Custom widgets
+â”œâ”€â”€ AstreisFunc/           # Main functionality module
+â”œâ”€â”€ config/                # Configuration files
+â”œâ”€â”€ requirements.txt       # Python dependencies
+â””â”€â”€ icon.ico              # Application icon
+```
+
+### Development Setup
+
+1. Clone the repository
+2. Install in development mode:
+```bash
+python build.py install
+```
+
+3. Make your changes
+4. Test the application:
+```bash
+python main.py
+```
+
+### Building for Distribution
+
+1. Update version in `setup.py` if needed
+2. Run the build process:
+```bash
+python build.py all
+```
+
+3. Test the executable from `dist/Astreis.exe`
+
+## Configuration
+
+The application uses several configuration files:
+
+- `settings.json`: Application settings and theme configuration
+- `gui/themes/*.json`: Theme definitions
+- `AstreisFunc/AstreisPowerPlan.pow`: Power plan configuration
+
+## Troubleshooting
+
+### Common Build Issues
+
+1. **Missing Dependencies**: Run `python build.py deps` to install all build dependencies
+2. **Permission Errors**: Run as administrator for system-level operations
+3. **PyInstaller Issues**: Try using cx_Freeze instead with `python build.py cx_freeze`
+4. **Import Errors**: Ensure all dependencies are installed with `pip install -r requirements.txt`
+
+### Runtime Issues
+
+1. **Admin Privileges**: The application requires administrator privileges for optimization features
+2. **Windows Version**: Ensure you're running Windows 10 or 11
+3. **Python Version**: Use Python 3.8 or higher
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## Support
+
+For issues and questions, please open an issue on the GitHub repository.
+
+## Disclaimer
+
+This tool performs system-level optimizations. Use at your own risk and ensure you have proper backups before making system changes. The developers are not responsible for any data loss or system damage that may occur from using this software. 

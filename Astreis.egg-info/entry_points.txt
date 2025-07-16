@@ -1,0 +1,5 @@
+[console_scripts]
+astreis = main:main
+
+[gui_scripts]
+astreis-gui = main:main
